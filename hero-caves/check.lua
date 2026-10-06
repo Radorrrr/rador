@@ -1,4 +1,4 @@
-for _,name in ipairs({'Game.server.lua','Game.client.lua','CharacterDesign.lua'}) do
+for _,name in ipairs({'Game.server.lua','Game.client.lua','CharacterDesign.lua','SaveData.lua','CombatAnimation.lua'}) do
  local fn,err=loadfile('/workspace/hero-caves/'..name)
  assert(fn,err)
  print(name..': syntax OK')

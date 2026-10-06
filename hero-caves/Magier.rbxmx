@@ -11,6 +11,7 @@
       <Properties>
         <string name="Name">Torso</string>
         <bool name="Anchored">true</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -47,7 +48,8 @@
     <Item class="Part" referent="P1">
       <Properties>
         <string name="Name">Head</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -84,7 +86,8 @@
     <Item class="Part" referent="P2">
       <Properties>
         <string name="Name">LeftLeg</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -121,7 +124,8 @@
     <Item class="Part" referent="P3">
       <Properties>
         <string name="Name">LeftBoot</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -158,7 +162,8 @@
     <Item class="Part" referent="P4">
       <Properties>
         <string name="Name">RightLeg</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -195,7 +200,8 @@
     <Item class="Part" referent="P5">
       <Properties>
         <string name="Name">RightBoot</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -232,7 +238,8 @@
     <Item class="Part" referent="P6">
       <Properties>
         <string name="Name">LeftArm</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -269,7 +276,8 @@
     <Item class="Part" referent="P7">
       <Properties>
         <string name="Name">LeftHand</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -306,18 +314,19 @@
     <Item class="Part" referent="P8">
       <Properties>
         <string name="Name">RightArm</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
         <Vector3 name="size">
           <X>0.7</X>
-          <Y>1.7</Y>
+          <Y>0.9</Y>
           <Z>0.8</Z>
         </Vector3>
         <CoordinateFrame name="CFrame">
           <X>1.38</X>
-          <Y>0.1</Y>
+          <Y>0.4</Y>
           <Z>0</Z>
           <R00>1</R00>
           <R01>0</R01>
@@ -343,7 +352,8 @@
     <Item class="Part" referent="P9">
       <Properties>
         <string name="Name">RightHand</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -380,7 +390,8 @@
     <Item class="Part" referent="P10">
       <Properties>
         <string name="Name">EyeWhite</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -417,7 +428,8 @@
     <Item class="Part" referent="P11">
       <Properties>
         <string name="Name">Eye</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -454,7 +466,8 @@
     <Item class="Part" referent="P12">
       <Properties>
         <string name="Name">Brow</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -491,7 +504,8 @@
     <Item class="Part" referent="P13">
       <Properties>
         <string name="Name">EyeWhite</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -528,7 +542,8 @@
     <Item class="Part" referent="P14">
       <Properties>
         <string name="Name">Eye</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -565,7 +580,8 @@
     <Item class="Part" referent="P15">
       <Properties>
         <string name="Name">Brow</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -602,7 +618,8 @@
     <Item class="Part" referent="P16">
       <Properties>
         <string name="Name">Mouth</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -639,7 +656,8 @@
     <Item class="Part" referent="P17">
       <Properties>
         <string name="Name">Belt</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -676,7 +694,8 @@
     <Item class="Part" referent="P18">
       <Properties>
         <string name="Name">Buckle</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -713,7 +732,8 @@
     <Item class="Part" referent="P19">
       <Properties>
         <string name="Name">RobeSkirt</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -750,7 +770,8 @@
     <Item class="Part" referent="P20">
       <Properties>
         <string name="Name">RobeTrim</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -787,7 +808,8 @@
     <Item class="Part" referent="P21">
       <Properties>
         <string name="Name">RobeTrim</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -824,7 +846,8 @@
     <Item class="Part" referent="P22">
       <Properties>
         <string name="Name">RobeHem</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -861,7 +884,8 @@
     <Item class="Part" referent="P23">
       <Properties>
         <string name="Name">HoodBack</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -898,7 +922,8 @@
     <Item class="Part" referent="P24">
       <Properties>
         <string name="Name">HatBrim</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -935,7 +960,8 @@
     <Item class="Part" referent="P25">
       <Properties>
         <string name="Name">HatTier</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -972,7 +998,8 @@
     <Item class="Part" referent="P26">
       <Properties>
         <string name="Name">HatTier</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1009,7 +1036,8 @@
     <Item class="Part" referent="P27">
       <Properties>
         <string name="Name">HatTier</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1046,7 +1074,8 @@
     <Item class="Part" referent="P28">
       <Properties>
         <string name="Name">HatTier</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1083,7 +1112,8 @@
     <Item class="Part" referent="P29">
       <Properties>
         <string name="Name">HatTier</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1120,7 +1150,8 @@
     <Item class="Part" referent="P30">
       <Properties>
         <string name="Name">HatBand</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1157,7 +1188,8 @@
     <Item class="Part" referent="P31">
       <Properties>
         <string name="Name">Pendant</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1194,7 +1226,8 @@
     <Item class="Part" referent="P32">
       <Properties>
         <string name="Name">Weapon</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1206,7 +1239,7 @@
         <CoordinateFrame name="CFrame">
           <X>1.38</X>
           <Y>0.22</Y>
-          <Z>-0.88</Z>
+          <Z>0.0</Z>
           <R00>1</R00>
           <R01>0</R01>
           <R02>0</R02>
@@ -1231,7 +1264,8 @@
     <Item class="Part" referent="P33">
       <Properties>
         <string name="Name">StaffRing</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1243,7 +1277,7 @@
         <CoordinateFrame name="CFrame">
           <X>1.38</X>
           <Y>-1.05</Y>
-          <Z>-0.88</Z>
+          <Z>0.0</Z>
           <R00>1</R00>
           <R01>0</R01>
           <R02>0</R02>
@@ -1268,7 +1302,8 @@
     <Item class="Part" referent="P34">
       <Properties>
         <string name="Name">StaffRing</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1280,7 +1315,7 @@
         <CoordinateFrame name="CFrame">
           <X>1.38</X>
           <Y>-0.75</Y>
-          <Z>-0.88</Z>
+          <Z>0.0</Z>
           <R00>1</R00>
           <R01>0</R01>
           <R02>0</R02>
@@ -1305,7 +1340,8 @@
     <Item class="Part" referent="P35">
       <Properties>
         <string name="Name">StaffRing</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1317,7 +1353,7 @@
         <CoordinateFrame name="CFrame">
           <X>1.38</X>
           <Y>0.9</Y>
-          <Z>-0.88</Z>
+          <Z>0.0</Z>
           <R00>1</R00>
           <R01>0</R01>
           <R02>0</R02>
@@ -1342,7 +1378,8 @@
     <Item class="Part" referent="P36">
       <Properties>
         <string name="Name">CrystalProng</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1354,7 +1391,7 @@
         <CoordinateFrame name="CFrame">
           <X>1.05</X>
           <Y>2.08</Y>
-          <Z>-0.88</Z>
+          <Z>0.0</Z>
           <R00>1</R00>
           <R01>0</R01>
           <R02>0</R02>
@@ -1379,7 +1416,8 @@
     <Item class="Part" referent="P37">
       <Properties>
         <string name="Name">CrystalProng</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1391,7 +1429,7 @@
         <CoordinateFrame name="CFrame">
           <X>1.71</X>
           <Y>2.08</Y>
-          <Z>-0.88</Z>
+          <Z>0.0</Z>
           <R00>1</R00>
           <R01>0</R01>
           <R02>0</R02>
@@ -1416,7 +1454,8 @@
     <Item class="Part" referent="P38">
       <Properties>
         <string name="Name">Orb</string>
-        <bool name="Anchored">true</bool>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
         <bool name="CanCollide">false</bool>
         <bool name="CanTouch">false</bool>
         <bool name="CanQuery">false</bool>
@@ -1428,7 +1467,7 @@
         <CoordinateFrame name="CFrame">
           <X>1.38</X>
           <Y>2.18</Y>
-          <Z>-0.88</Z>
+          <Z>0.0</Z>
           <R00>1</R00>
           <R01>0</R01>
           <R02>0</R02>
@@ -1448,6 +1487,464 @@
         <token name="shape">0</token>
         <token name="TopSurface">0</token>
         <token name="BottomSurface">0</token>
+      </Properties>
+    </Item>
+    <Item class="Part" referent="P39">
+      <Properties>
+        <string name="Name">RightForearm</string>
+        <bool name="Anchored">false</bool>
+        <bool name="Massless">true</bool>
+        <bool name="CanCollide">false</bool>
+        <bool name="CanTouch">false</bool>
+        <bool name="CanQuery">false</bool>
+        <Vector3 name="size">
+          <X>0.7</X>
+          <Y>0.8</Y>
+          <Z>0.8</Z>
+        </Vector3>
+        <CoordinateFrame name="CFrame">
+          <X>1.38</X>
+          <Y>-0.4</Y>
+          <Z>0</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+        <Color3 name="Color">
+          <R>0.2823529411764706</R>
+          <G>0.15294117647058825</G>
+          <B>0.4823529411764706</B>
+        </Color3>
+        <token name="Material">1312</token>
+        <token name="shape">1</token>
+        <token name="TopSurface">0</token>
+        <token name="BottomSurface">0</token>
+      </Properties>
+    </Item>
+    <Item class="Motor6D" referent="J0">
+      <Properties>
+        <string name="Name">RightShoulder</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P8</Ref>
+        <CoordinateFrame name="C0">
+          <X>1.38</X>
+          <Y>0.95</Y>
+          <Z>0</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+        <CoordinateFrame name="C1">
+          <X>0.0</X>
+          <Y>0.5499999999999999</Y>
+          <Z>0</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+      </Properties>
+    </Item>
+    <Item class="Motor6D" referent="J1">
+      <Properties>
+        <string name="Name">RightElbow</string>
+        <Ref name="Part0">P8</Ref>
+        <Ref name="Part1">P39</Ref>
+        <CoordinateFrame name="C0">
+          <X>0.0</X>
+          <Y>-0.4</Y>
+          <Z>0</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+        <CoordinateFrame name="C1">
+          <X>0.0</X>
+          <Y>0.4</Y>
+          <Z>0</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+      </Properties>
+    </Item>
+    <Item class="Motor6D" referent="J2">
+      <Properties>
+        <string name="Name">RightWrist</string>
+        <Ref name="Part0">P39</Ref>
+        <Ref name="Part1">P9</Ref>
+        <CoordinateFrame name="C0">
+          <X>0.0</X>
+          <Y>-0.41999999999999993</Y>
+          <Z>0</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+        <CoordinateFrame name="C1">
+          <X>0.0</X>
+          <Y>0.10000000000000009</Y>
+          <Z>0</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+      </Properties>
+    </Item>
+    <Item class="Motor6D" referent="J3">
+      <Properties>
+        <string name="Name">RightGrip</string>
+        <Ref name="Part0">P9</Ref>
+        <Ref name="Part1">P32</Ref>
+        <CoordinateFrame name="C0">
+          <X>0.0</X>
+          <Y>0.0</Y>
+          <Z>0</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+        <CoordinateFrame name="C1">
+          <X>0.0</X>
+          <Y>-1.1400000000000001</Y>
+          <Z>0.0</Z>
+          <R00>1</R00>
+          <R01>0</R01>
+          <R02>0</R02>
+          <R10>0</R10>
+          <R11>1</R11>
+          <R12>0</R12>
+          <R20>0</R20>
+          <R21>0</R21>
+          <R22>1</R22>
+        </CoordinateFrame>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W1">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P1</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W2">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P2</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W3">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P3</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W4">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P4</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W5">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P5</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W6">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P6</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W7">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P7</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W10">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P10</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W11">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P11</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W12">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P12</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W13">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P13</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W14">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P14</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W15">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P15</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W16">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P16</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W17">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P17</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W18">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P18</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W19">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P19</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W20">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P20</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W21">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P21</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W22">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P22</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W23">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P23</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W24">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P24</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W25">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P25</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W26">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P26</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W27">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P27</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W28">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P28</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W29">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P29</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W30">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P30</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W31">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P0</Ref>
+        <Ref name="Part1">P31</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W33">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P32</Ref>
+        <Ref name="Part1">P33</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W34">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P32</Ref>
+        <Ref name="Part1">P34</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W35">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P32</Ref>
+        <Ref name="Part1">P35</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W36">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P32</Ref>
+        <Ref name="Part1">P36</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W37">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P32</Ref>
+        <Ref name="Part1">P37</Ref>
+        <bool name="Enabled">true</bool>
+      </Properties>
+    </Item>
+    <Item class="WeldConstraint" referent="W38">
+      <Properties>
+        <string name="Name">DetailWeld</string>
+        <Ref name="Part0">P32</Ref>
+        <Ref name="Part1">P38</Ref>
+        <bool name="Enabled">true</bool>
       </Properties>
     </Item>
   </Item>

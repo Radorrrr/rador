@@ -4,7 +4,7 @@ local event=RS:WaitForChild('HeroCavesEvent')
 local gui=Instance.new('ScreenGui'); gui.Name='HeroCavesUI'; gui.ResetOnSpawn=false; gui.Parent=Players.LocalPlayer:WaitForChild('PlayerGui')
 local panel=Instance.new('Frame'); panel.Size=UDim2.new(0,350,0,430); panel.Position=UDim2.new(0,12,0,12); panel.BackgroundColor3=Color3.fromRGB(24,29,38); panel.Parent=gui
 local scale=Instance.new('UIScale'); scale.Parent=panel
-local function fit() local camera=workspace.CurrentCamera; if camera then scale.Scale=math.min(1,camera.ViewportSize.X/380,camera.ViewportSize.Y/470) end end
+local function fit() local camera=workspace.CurrentCamera; if camera then scale.Scale=math.min(1,camera.ViewportSize.X/380,camera.ViewportSize.Y/500) end end
 fit(); workspace:GetPropertyChangedSignal('CurrentCamera'):Connect(fit)
 if workspace.CurrentCamera then workspace.CurrentCamera:GetPropertyChangedSignal('ViewportSize'):Connect(fit) end
 local function text(y,height,value)
@@ -29,6 +29,8 @@ for i=1,4 do
 end
 local retry=button(368,12,322,'Boss erneut versuchen',function() event:FireServer('Retry') end); retry.Visible=false
 local message=text(400,26,'Käufe beim Händler • Upgrades überall')
+local saveStatus=text(430,32,'')
+panel.Size=UDim2.fromOffset(350,472)
 local messageUntil=0
 local function n(value) if value>=1e6 then return string.format('%.1fM',value/1e6) elseif value>=1000 then return string.format('%.1fk',value/1000) else return tostring(math.floor(value)) end end
 local state
@@ -36,6 +38,8 @@ local function render()
  if not state then return end
  status.Text='Gold: '..n(state.gold)..'  |  Welle: '..state.wave..(state.farming and ' · Gold sammeln' or '')..(state.remaining and string.format('\nBoss: %.1f Sekunden',state.remaining) or '')
  retry.Visible=state.farming
+ saveStatus.Text=state.saveStatus or ''
+ saveStatus.TextSize=12
  for i,h in ipairs(state.heroes) do
   local row=rows[i]; row.data=h
   row.label.Text=h.name..' · Lv. '..h.level..' · '..n(h.damage)..' Schaden · '..h.speed..'/s'

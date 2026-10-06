@@ -5,6 +5,8 @@ local Tween = game:GetService('TweenService')
 local Run = game:GetService('RunService')
 local Debris = game:GetService('Debris')
 local CharacterDesign = require(RS:WaitForChild('CharacterDesign'))
+local SaveData = require(game:GetService('ServerScriptService'):WaitForChild('SaveData'))
+local CombatAnimation = require(RS:WaitForChild('CombatAnimation'))
 local heroes = {
  {name='Ritter', cost=0, damage=6, speed=1, weapon='Sword', color=Color3.fromRGB(95,145,210)},
  {name='Berserker', cost=100, damage=18, speed=0.8, weapon='Axe', color=Color3.fromRGB(210,95,60)},
@@ -20,6 +22,9 @@ end
 local folder=Instance.new('Folder'); folder.Name='HeroCaves'; folder.Parent=workspace
 local remote=Instance.new('RemoteEvent'); remote.Name='HeroCavesEvent'; remote.Parent=RS
 local states={}
+local opening={}
+local closingProfiles={}
+local shuttingDown=false
 local function part(parent,name,size,cf,color)
  local p=Instance.new('Part'); p.Name=name; p.Size=size; p.CFrame=cf; p.Color=color
  p.Anchored=true; p.TopSurface=Enum.SurfaceType.Smooth; p.BottomSurface=Enum.SurfaceType.Smooth; p.Parent=parent
@@ -31,8 +36,8 @@ local function label(p,text,size)
  return t,gui
 end
 local function actor(parent,name,cf,color,weapon)
- local designed, designedWeapon=CharacterDesign.create(parent,name,cf)
- if designed then return designed,designedWeapon end
+ local designed, designedWeapon, rig=CharacterDesign.create(parent,name,cf)
+ if designed then return designed,designedWeapon,rig end
  local m=Instance.new('Model'); m.Name=name; m.Parent=parent
  local root=part(m,'Torso',Vector3.new(2,2.5,1),cf,color); m.PrimaryPart=root
  local head=part(m,'Head',Vector3.new(1.4,1.4,1.4),cf*CFrame.new(0,2,0),Color3.fromRGB(240,205,160)); head.Shape=Enum.PartType.Ball
@@ -68,7 +73,7 @@ local function snapshot(s,message)
   local h=s.heroes[id]; local level=h and h.level or 0
   table.insert(list,{id=id,name=def.name,cost=def.cost,level=level,damage=damage(id,math.max(level,1)),speed=def.speed,upgrade=upgradeCost(id,math.max(level,1)),arriving=h and not h.ready or false})
  end
- remote:FireClient(s.player,'State',{gold=s.gold,wave=s.wave,farming=s.farming,remaining=s.deadline and math.max(0,s.deadline-os.clock()) or nil,heroes=list,message=message})
+ remote:FireClient(s.player,'State',{gold=s.gold,wave=s.wave,farming=s.farming,remaining=s.deadline and math.max(0,s.deadline-os.clock()) or nil,heroes=list,message=message,saveStatus=s.saveStatus})
  s.goldValue.Value=s.gold
 end
 local function spawnMob(s)
@@ -94,11 +99,11 @@ local function spawnMob(s)
 end
 local function addHero(s,id,walk)
  local slot=id; local angle=(slot-1)*math.pi/2+math.pi/4
- local pos=s.center+Vector3.new(math.cos(angle)*9,3,math.sin(angle)*9)
+ local pos=s.center+Vector3.new(math.cos(angle)*4.2,3,math.sin(angle)*4.2)
  local target=CFrame.lookAt(pos,Vector3.new(s.center.X,pos.Y,s.center.Z))
- local m,blade=actor(s.base,heroes[id].name,walk and CFrame.new(0,3,20) or target,heroes[id].color,heroes[id].weapon)
+ local m,blade,rig=actor(s.base,heroes[id].name,walk and CFrame.new(0,3,20) or target,heroes[id].color,heroes[id].weapon)
  label(m.PrimaryPart,heroes[id].name,120)
- local h={level=1,model=m,blade=blade,ready=not walk,nextAttack=0}; s.heroes[id]=h
+ local h={level=1,model=m,blade=blade,rig=rig,ready=not walk,nextAttack=0}; s.heroes[id]=h
  if not walk then return end
  task.spawn(function()
   local points={Vector3.new(0,3,30),Vector3.new(s.center.X,3,30),pos}
@@ -112,21 +117,50 @@ local function addHero(s,id,walk)
   m:PivotTo(target); h.ready=true; h.nextAttack=os.clock(); snapshot(s)
  end)
 end
-local function animate(s,id,h)
- local blade=h.blade; local rest=blade.CFrame
- local arm=h.model:FindFirstChild('RightArm'); local armRest=arm.CFrame
- Tween:Create(arm,TweenInfo.new(.12),{CFrame=armRest*CFrame.Angles(math.rad(-65),0,0)}):Play()
- task.delay(.12,function() if arm.Parent then Tween:Create(arm,TweenInfo.new(.16),{CFrame=armRest}):Play() end end)
- local pose=heroes[id].weapon=='Staff' and rest*CFrame.Angles(math.rad(-40),0,0) or rest*CFrame.Angles(math.rad(-85),0,math.rad(20))
- local out=Tween:Create(blade,TweenInfo.new(.12),{CFrame=pose}); out:Play()
- task.delay(.12,function() if blade.Parent then Tween:Create(blade,TweenInfo.new(.16),{CFrame=rest}):Play() end end)
- if heroes[id].weapon=='Staff' then
-  local ball=part(s.base,'Magic',Vector3.new(.6,.6,.6),blade.CFrame,Color3.fromRGB(180,90,255)); ball.Shape=Enum.PartType.Ball; ball.Material=Enum.Material.Neon; ball.CanCollide=false
-  Tween:Create(ball,TweenInfo.new(.2),{Position=s.mob.PrimaryPart.Position}):Play(); Debris:AddItem(ball,.25)
+local function attack(s,id,h)
+ local target=s.mob; local amount=damage(id,h.level)
+ local function valid()
+  return states[s.player]==s and s.active and s.mob==target and target.Parent~=nil and h.model.Parent~=nil
  end
+ CombatAnimation.attack(h.rig,heroes[id].weapon,function()
+  if not valid() or s.health<=0 or (s.deadline and os.clock()>=s.deadline) then return end
+  local function hit()
+   if not valid() or s.health<=0 or (s.deadline and os.clock()>=s.deadline) then return end
+   s.health=math.max(0,s.health-amount)
+   local glow=Instance.new('Highlight'); glow.Adornee=target; glow.FillColor=Color3.fromRGB(255,220,130); glow.FillTransparency=.4; glow.OutlineTransparency=1; glow.Parent=target; Debris:AddItem(glow,.12)
+  end
+  if heroes[id].weapon=='Staff' then
+   local orb=h.model:FindFirstChild('Orb')
+   local ball=part(s.base,'Magic',Vector3.new(.5,.5,.5),orb and orb.CFrame or h.blade.CFrame,Color3.fromRGB(107,218,255))
+   ball.Shape=Enum.PartType.Ball; ball.Material=Enum.Material.Neon; ball.CanCollide=false
+   Tween:Create(ball,TweenInfo.new(.12),{Position=target.PrimaryPart.Position}):Play(); Debris:AddItem(ball,.15)
+   task.delay(.12,hit)
+  else hit() end
+ end,valid)
+end
+local function pack(s)
+ local levels={}
+ for id,h in pairs(s.heroes) do levels[tostring(id)]=h.level end
+ return {version=1,gold=s.gold,wave=s.wave,farming=s.farming,levels=levels}
+end
+local function save(s,release)
+ local ok,reason=SaveData.save(s.profile,pack(s),release)
+ if not ok then
+  s.saveStatus='Speichern fehlgeschlagen – erneuter Versuch folgt'
+  if reason=='ownership' and s.player.Parent==Players then
+   s.player:Kick('Dein Spielstand wurde auf einem anderen Server geöffnet. Bitte verbinde dich erneut.')
+  end
+ else s.saveStatus=s.profile.persistent and 'Spielstand gespeichert' or 'Nur diese Sitzung – Spiel noch nicht veröffentlicht' end
+ return ok
 end
 local function join(player)
- if states[player] then return end
+ if states[player] or opening[player] or shuttingDown then return end
+ opening[player]=true
+ local profile,loadError=SaveData.open(player)
+ opening[player]=nil
+ if not profile then if player.Parent==Players then player:Kick(loadError) end; return end
+ if player.Parent~=Players or shuttingDown then SaveData.save(profile,profile.data,true); return end
+ local loaded=profile.data
  local used={}; for _,s in pairs(states) do used[s.slot]=true end
  local slot=1; while used[slot] do slot=slot+1 end
  local column=(slot-1)%4; local row=math.floor((slot-1)/4)
@@ -140,12 +174,40 @@ local function join(player)
  part(base,'Path',Vector3.new(8,.25,center.Z-30),CFrame.new(center.X,.2,(center.Z+30)/2),Color3.fromRGB(150,130,95))
  local leader=Instance.new('Folder'); leader.Name='leaderstats'; leader.Parent=player
  local gold=Instance.new('IntValue'); gold.Name='Gold'; gold.Parent=leader
- local s={player=player,slot=slot,base=base,center=center,gold=0,goldValue=gold,wave=1,farming=false,heroes={},lastRequest=0}; states[player]=s
- addHero(s,1,false); spawnMob(s); snapshot(s)
+ local s={player=player,slot=slot,base=base,center=center,gold=loaded.gold,goldValue=gold,wave=loaded.wave,farming=loaded.farming,heroes={},lastRequest=0,profile=profile,saveStatus=profile.persistent and 'Spielstand geladen' or 'Nur diese Sitzung – Spiel noch nicht veröffentlicht'}; states[player]=s
+ for id=1,#heroes do
+  local level=loaded.levels[tostring(id)] or 0
+  if level>0 then addHero(s,id,false); s.heroes[id].level=level end
+ end
+ spawnMob(s); snapshot(s)
 end
 Players.PlayerAdded:Connect(join)
-Players.PlayerRemoving:Connect(function(player) local s=states[player]; states[player]=nil; if s then s.base:Destroy() end end)
-for _,p in ipairs(Players:GetPlayers()) do join(p) end
+Players.PlayerRemoving:Connect(function(player)
+ local s=states[player]; states[player]=nil
+ if s then
+  s.base:Destroy(); closingProfiles[s]=true
+  save(s,true); closingProfiles[s]=nil
+ end
+end)
+task.spawn(function()
+ while not shuttingDown do
+  task.wait(45)
+  if shuttingDown then break end
+  for _,s in pairs(states) do task.spawn(function() save(s,false) end) end
+ end
+end)
+game:BindToClose(function()
+ shuttingDown=true
+ local pending={}
+ for player,s in pairs(states) do states[player]=nil; pending[s]=true end
+ for s in pairs(closingProfiles) do pending[s]=true end
+ for s in pairs(pending) do
+  task.spawn(function() save(s,true); pending[s]=nil end)
+ end
+ local started=os.clock()
+ while next(pending) and os.clock()-started<25 do task.wait(.1) end
+end)
+for _,p in ipairs(Players:GetPlayers()) do task.spawn(join,p) end
 remote.OnServerEvent:Connect(function(player,action,id)
  local s=states[player]; if not s then return end
  local now=os.clock(); if now-s.lastRequest<.15 then return end; s.lastRequest=now
@@ -178,7 +240,7 @@ Run.Heartbeat:Connect(function()
    else
     for id,h in pairs(s.heroes) do
      if h.ready and now>=h.nextAttack and s.health>0 then
-      h.nextAttack=now+1/heroes[id].speed; animate(s,id,h); s.health=math.max(0,s.health-damage(id,h.level))
+      h.nextAttack=now+1/heroes[id].speed; attack(s,id,h)
      end
     end
     if s.health<=0 then

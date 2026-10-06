@@ -13,7 +13,7 @@ for hero in ['Ritter','Berserker','Magier','Paladin']:
  add(a,'Head',(1.45,1.45,1.3),(0,1.9,0),skin)
  for side,x in [('Left',-0.55),('Right',0.55)]:
   add(a,side+'Leg',(.85,1.65,.85),(x,-1.9,0),dark,'Fabric')
-  add(a,side+'Boot',(.95,.65,1.15),(x,-2.48,-.12),(53,39,30),'Leather' if False else 'Wood')
+  add(a,side+'Boot',(.95,.65,1.15),(x,-2.48,-.12),(53,39,30),'Wood')
  for side,x in [('Left',-1.38),('Right',1.38)]:
   group='Arm' if side=='Right' else 'Body'
   add(a,side+'Arm',(.7,1.7,.8),(x,.1,0),cloth,'Fabric',group)
@@ -80,6 +80,15 @@ for hero in ['Ritter','Berserker','Magier','Paladin']:
   for y in [-1.05,-.75,.9]: add(a,'StaffRing',(.34,.15,.34),(1.38,y,-.88),gold,'Metal','Weapon')
   for x in [1.05,1.71]: add(a,'CrystalProng',(.13,.85,.17),(x,2.08,-.88),gold,'Metal','Weapon')
   add(a,'Orb',(.65,.85,.65),(1.38,2.18,-.88),(107,218,255),'Neon','Weapon','Ball')
+# Split the attacking arm into a jointed chain and seat each handle in the palm.
+for hero,parts in models.items():
+ for spec in parts:
+  if spec['name']=='RightArm': spec['size']=(.7,.9,.8); spec['pos']=(1.38,.4,0)
+  if spec['name']=='RightHand': spec['group']='Hand'
+  if spec['name']=='RightGauntlet': spec['group']='Forearm'
+  if spec['group']=='Weapon': spec['pos']=(spec['pos'][0],spec['pos'][1],spec['pos'][2]+.88)
+ add(parts,'RightForearm',(.7,.8,.8),(1.38,-.4,0),parts[0]['color'],'Fabric','Forearm')
+
 # Emit data as Lua, keeping models available without asset permissions.
 def lua(v):
  if isinstance(v,dict): return '{'+','.join(k+'='+lua(x) for k,x in v.items())+'}'
@@ -87,35 +96,7 @@ def lua(v):
  if isinstance(v,str): return json.dumps(v,ensure_ascii=False)
  return str(v)
 module='local designs = {\n'+',\n'.join('['+lua(k)+']='+lua(v) for k,v in models.items())+'\n}\n'
-module+='''local Designer = {}
-function Designer.create(parent, name, cf)
- local specs=designs[name]; if not specs then return nil end
- local model=Instance.new('Model'); model.Name=name; model.Parent=parent
- local groups={Arm={},Weapon={}}; local arm,weapon
- for _,s in ipairs(specs) do
-  local p=Instance.new('Part'); p.Name=s.name; p.Size=Vector3.new(table.unpack(s.size)); p.CFrame=cf*CFrame.new(table.unpack(s.pos))
-  p.Color=Color3.fromRGB(table.unpack(s.color)); p.Material=Enum.Material[s.material]; p.Shape=Enum.PartType[s.shape]
-  p.Anchored=true; p.CanCollide=false; p.CanTouch=false; p.CanQuery=false; p.TopSurface=Enum.SurfaceType.Smooth; p.BottomSurface=Enum.SurfaceType.Smooth; p.Parent=model
-  if s.name=='Torso' then model.PrimaryPart=p end
-  if s.name=='RightArm' then arm=p end
-  if s.name=='Weapon' then weapon=p end
-  if groups[s.group] then table.insert(groups[s.group],p) end
- end
- -- Decorative armor and weapon pieces follow each animation's driver part.
- for group,driver in pairs({Arm=arm,Weapon=weapon}) do
-  for _,p in ipairs(groups[group]) do
-   if p~=driver then
-    local offset=driver.CFrame:ToObjectSpace(p.CFrame)
-    driver:GetPropertyChangedSignal('CFrame'):Connect(function()
-     if p.Parent then p.CFrame=driver.CFrame*offset end
-    end)
-   end
-  end
- end
- return model,weapon
-end
-return Designer
-'''
+module+=(P/'CharacterRig.template.lua').read_text()
 (P/'CharacterDesign.lua').write_text(module)
 # Export separate importable Roblox models.
 materials={'SmoothPlastic':272,'Fabric':1312,'Wood':512,'Metal':1088,'Neon':288}
@@ -126,7 +107,7 @@ for hero,parts in models.items():
  for i,s in enumerate(parts):
   it=E.SubElement(obj,'Item',{'class':'Part','referent':'P'+str(i)}); pr=E.SubElement(it,'Properties')
   E.SubElement(pr,'string',name='Name').text=s['name']
-  for k,v in [('Anchored',True),('CanCollide',False),('CanTouch',False),('CanQuery',False)]: E.SubElement(pr,'bool',name=k).text=str(v).lower()
+  for k,v in [('Anchored',s['name']=='Torso'),('Massless',True),('CanCollide',False),('CanTouch',False),('CanQuery',False)]: E.SubElement(pr,'bool',name=k).text=str(v).lower()
   sz=E.SubElement(pr,'Vector3',name='size')
   for axis,v in zip('XYZ',s['size']): E.SubElement(sz,axis).text=str(v)
   cf=E.SubElement(pr,'CoordinateFrame',name='CFrame')
@@ -138,6 +119,30 @@ for hero,parts in models.items():
   E.SubElement(pr,'token',name='Material').text=str(materials[s['material']])
   E.SubElement(pr,'token',name='shape').text='0' if s['shape']=='Ball' else '1'
   for key in ['TopSurface','BottomSurface']: E.SubElement(pr,'token',name=key).text='0'
+ # Export the same three-bone chain and hand grip used by the runtime.
+ byname={s['name']:(i,s) for i,s in enumerate(parts)}
+ def frame(pr,key,xyz):
+  cf=E.SubElement(pr,'CoordinateFrame',name=key)
+  for axis,v in zip('XYZ',xyz): E.SubElement(cf,axis).text=str(v)
+  for row in range(3):
+   for col in range(3): E.SubElement(cf,'R'+str(row)+str(col)).text=str(int(row==col))
+ drivers={'Arm':'RightArm','Forearm':'RightForearm','Hand':'RightHand','Weapon':'Weapon','Body':'Torso'}
+ for j,(name,a,b,pivot) in enumerate([
+  ('RightShoulder','Torso','RightArm',(1.38,.95,0)),
+  ('RightElbow','RightArm','RightForearm',(1.38,0,0)),
+  ('RightWrist','RightForearm','RightHand',(1.38,-.82,0)),
+  ('RightGrip','RightHand','Weapon',(1.38,-.92,0))]):
+  motor=E.SubElement(obj,'Item',{'class':'Motor6D','referent':'J'+str(j)}); pr=E.SubElement(motor,'Properties')
+  E.SubElement(pr,'string',name='Name').text=name
+  for key,n in [('Part0',a),('Part1',b)]: E.SubElement(pr,'Ref',name=key).text='P'+str(byname[n][0])
+  for key,n in [('C0',a),('C1',b)]: frame(pr,key,tuple(pivot[k]-byname[n][1]['pos'][k] for k in range(3)))
+ for i,spec in enumerate(parts):
+  if spec['name'] in ['Torso','RightArm','RightForearm','RightHand','Weapon']: continue
+  weld=E.SubElement(obj,'Item',{'class':'WeldConstraint','referent':'W'+str(i)}); pr=E.SubElement(weld,'Properties')
+  E.SubElement(pr,'string',name='Name').text='DetailWeld'
+  E.SubElement(pr,'Ref',name='Part0').text='P'+str(byname[drivers[spec['group']]][0])
+  E.SubElement(pr,'Ref',name='Part1').text='P'+str(i)
+  E.SubElement(pr,'bool',name='Enabled').text='true'
  E.indent(root); E.ElementTree(root).write(P/(hero+'.rbxmx'),encoding='utf-8',xml_declaration=True)
 (P/'character_geometry.json').write_text(json.dumps(models,ensure_ascii=False,indent=2))
 print('Four character models and runtime module generated:', {k:len(v) for k,v in models.items()})
